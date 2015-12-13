@@ -129,6 +129,11 @@ Then inside the lost-node folder issue the following commands:
 
 
 ##Notes
+* lost-node is developed with:
+  * node.js version 4.2.2
+  * mongodb version 3.0.7
+  * Visual Studio Code version 0.10.3
+ 
 * JayData odata-server / jaydata 1.3.6 node module does not work with 
 mongodb client >= 2.0
 (see https://www.mongodb.com/blog/post/introducing-nodejs-mongodb-20-driver)
