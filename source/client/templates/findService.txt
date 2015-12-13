@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<findService 
+	xmlns="urn:ietf:params:xml:ns:lost1" 
+	xmlns:p2="http://www.opengis.net/gml" 
+	serviceBoundary="value" 
+	recursive="true">
+	<location id="6020688f1ce1896d" profile="geodetic-2d">
+		<p2:Point id="point1" srsName="urn:ogc:def:crs:EPSG::4326">
+			<p2:pos>-122.422 37.775</p2:pos>
+		</p2:Point>
+	</location>
+	<location id="627b8bf819d0bad4d" profile="civic">
+		<civicAddress xmlns="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr">
+			<country>DE</country>
+			<A1>Bavaria</A1>
+			<A3>Munich</A3>
+			<A6>Otto-Hahn-Ring</A6>
+			<HNO>6</HNO>
+			<PC>81675</PC>
+		</civicAddress>
+	</location>
+	<service>urn:service:sos.police</service>
+</findService>

@@ -1,0 +1,123 @@
+
+.splash {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.select-indicator {
+	float: right;
+	padding-left: 20px;
+}
+
+div.select-indicator label {
+	font-weight: normal;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  //padding: 0em;
+}
+
+td.details-control {
+    background: url('../images/details_more.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.details td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
+.details-control {
+	width: 30px;
+}
+
+.select-control {
+	width: 30px;
+	text-align: center;
+}
+
+.cm-s-lostTesterXmlEditor {
+	height: calc(100vh - 225px);
+}
+
+.cm-s-lostTesterXmlViewer {
+	height: calc(50vh - 150px);
+}
+
+/*
+.CodeMirror-scroll {
+  overflow: auto;
+  height: 100%;
+  // This is needed to prevent an IE[67] bug where the scrolled content
+  //   is visible outside of the scrolling box.
+  position: relative;
+  outline: none;
+}
+*/
+
+.FullHeightPanel {
+	/* Firefox */
+	height: -moz-calc(100vh - 120px);
+	/* WebKit */
+	height: -webkit-calc(100vh - 120px);
+	/* Opera */
+	height: -o-calc(100vh - 120px);
+	/* Standard */
+	height: calc(100vh - 120px);
+}
+
+.HalfHeightPanel {
+	/* Firefox */
+	height: -moz-calc(50vh - 70px);
+	/* WebKit */
+	height: -webkit-calc(50vh - 70px);
+	/* Opera */
+	height: -o-calc(50vh - 70px);
+	/* Standard */
+	height: calc(50vh - 70px);
+}
+
+.Map {
+	/* Firefox */
+	height: -moz-calc(100% - 60px);
+	/* WebKit */
+	height: -webkit-calc(100% - 60px);
+	/* Opera */
+	height: -o-calc(100% - 60px);
+	/* Standard */
+	height: calc(100% - 70px);
+}
+
+/* override some leafelet image paths */
+.leaflet-control-layers-toggle {
+	background-image: url(../js/lib/leaflet/images/layers.png);
+}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(../js/lib/leaflet/images/layers-2x.png);
+}
+	
+/* override some bootstrap styles to play nicely with leaflet */
+.dropdown-menu {
+	z-index: 2000;
+}
+
+/* override jquery datatables image paths */
+table.dataTable thead .sorting {
+  background-image: url("../images/sort_both.png");
+}
+table.dataTable thead .sorting_asc {
+  background-image: url("../images/sort_asc.png");
+}
+table.dataTable thead .sorting_desc {
+  background-image: url("../images/sort_desc.png");
+}
+table.dataTable thead .sorting_asc_disabled {
+  background-image: url("../images/sort_asc_disabled.png");
+}
+table.dataTable thead .sorting_desc_disabled {
+  background-image: url("../images/sort_desc_disabled.png");
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listServicesByLocation
+	xmlns="urn:ietf:params:xml:ns:lost1"
+	xmlns:p2="http://www.opengis.net/gml"
+	recursive="true">
+	<location id="3e19dfb3b9828c3" profile="geodetic-2d">
+		<p2:Point srsName="urn:ogc:def:crs:EPSG::4326">
+			<p2:pos>150.883 -34.407</p2:pos>
+		</p2:Point>
+	</location>
+	<service>urn:service:sos</service>
+</listServicesByLocation>

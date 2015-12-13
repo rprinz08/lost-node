@@ -1,0 +1,30 @@
+{
+  "name": "lost-node",
+  "version": "0.1.0",
+  "description": "RFC5222 Lost Server",
+  "main": "index.js",
+  "keywords": [
+    "Lost",
+    "RFC5222"
+  ],
+  "authors": [
+    "richard.prinz@min.at"
+  ],
+  "license": "GPL",
+  "homepage": "https://github.com/rprinz08/lost-node",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "typings",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "bootstrap-combobox": "https://github.com/danielfarrell/bootstrap-combobox.git#~1.1.6",
+    "leaflet": "~0.7.5",
+    "codemirror": "~5.8.0"
+  }
+}

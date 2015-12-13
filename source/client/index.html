@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LoST Splash</title>
+
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="LoST">
+    <meta name="author" content="Richard Prinz">	
+
+    <link type="text/css" href="./assets/css/main.css" rel="stylesheet" />
+	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/jquery/jquery.js"></script>		
+	<script>
+var oReadyStateTimer;
+var initialize = function() {
+	oReadyStateTimer = setInterval(function () {
+			if (document.readyState === "complete") {
+				clearInterval(oReadyStateTimer);				
+				initializeSplash();
+			}
+		}, 500);
+}
+
+var initializeSplash = function() {
+	$('#splashDiv')
+		.fadeOut(5000, function() {
+			window.location.href = './main.html';
+		});
+};
+	</script>
+</head>
+<body onLoad="initialize();">
+	<div id="splashDiv" class="splash" >
+		<h1>LoST</h1>
+		A very lightweight LoST server
+		<p/>&nbsp;<p/>
+		<svg style="fill:rgb(192, 57, 43);" version="1.0" xmlns:xlink="http://www.w3.org/1999/xlink" width="256px" height="256px" 
+			viewBox="0 0 26 26" style="enable-background:new 0 0 26 26;">
+			<g>
+				<path d="M25,12h-1.045C23.479,6.73,19.27,2.522,14,2.045V1c0-0.552-0.447-1-1-1c-0.552,
+					0-1,0.448-1,1v1.045C6.73,2.522,2.522,6.73,2.045,12H1c-0.552,0-1,0.448-1,1c0,0.553,
+					0.448,1,1,1h1.045C2.522,19.27,6.73,23.479,12,23.955V25c0,0.553,0.448,1,1,1c0.553,
+					0,1-0.447,1-1v-1.045c5.27-0.477,9.479-4.686,9.955-9.955H25c0.553,0,1-0.447,
+					1-1C26,12.448,25.553,12,25,12zM21,14h0.944c-0.462,4.165-3.779,7.482-7.944,
+					7.944V21c0-0.553-0.447-1-1-1c-0.552,0-1,0.447-1,1v0.944C7.835,21.482,4.518,
+					18.165,4.055,14H5c0.552,0,1-0.447,1-1c0-0.552-0.448-1-1-1H4.055C4.518,7.835,
+					7.835,4.518,12,4.055V5c0,0.552,0.448,1,1,1c0.553,0,1-0.448,1-1V4.055c4.165,
+					0.462,7.482,3.78,7.944,7.945H21c-0.553,0-1,0.448-1,1C20,13.553,20.447,14,21,14z">
+				</path>
+				<circle cx="13" cy="13" r="4"></circle>
+			</g>
+		</svg>
+		<p/>&nbsp;<p/>
+		Version 0.1.0
+	</div>
+</body>
+</html>

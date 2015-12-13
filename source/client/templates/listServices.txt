@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listServices
+	xmlns="urn:ietf:params:xml:ns:lost1">
+	<service>urn:service:sos</service>
+</listServices>

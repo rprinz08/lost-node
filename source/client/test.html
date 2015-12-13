@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoST Tester</title>
+
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="LoST Tester">
+    <meta name="author" content="Richard Prinz">	
+	
+	<link type="text/css" href="./assets/js/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />	
+	<link type="text/css" href="./assets/js/lib/bootstrap/css/bootstrap.combobox.css" rel="stylesheet" />	
+	<link type="text/css" href="./assets/js/lib/leaflet/css/leaflet.css" rel="stylesheet" />
+    <link type="text/css" href="./assets/js/lib/codemirror/css/codemirror.css" rel="stylesheet" />
+    <link type="text/css" href="./assets/js/lib/codemirror/css/dialog.css" rel="stylesheet" />
+	<style TYPE="text/css">
+		.CodeMirror {
+		  border: 1px solid #eee;
+		  height: auto;
+		}
+		.CodeMirror-scroll {
+		  overflow-y: hidden;
+		  overflow-x: auto;
+		}		
+		.wordwrap { 
+		   white-space: pre-wrap;
+		   white-space: -moz-pre-wrap;
+		   white-space: -pre-wrap;
+		   white-space: -o-pre-wrap;
+		   word-wrap: break-word;
+		   overflow-x: auto;
+		}		
+	</style>
+    <link type="text/css" href="./assets/css/main.css" rel="stylesheet" />
+	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/jquery/jquery.js"></script>	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/bootstrap/bootstrap.js"></script>	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/bootstrap/bootstrap.combobox.js"></script>	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/codemirror.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/xml.js"></script>	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/javascript.js"></script>	
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/search.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/searchcursor.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/dialog.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/codemirror/searchwithoutdialog.js"></script>
+
+	<!-- Enter your Google Maps API key here -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/leaflet/leaflet.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/leaflet/leaflet-google.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/lib/leaflet/leaflet-bing.js"></script>	
+	
+    <script type="text/javascript" charset="utf8" src="./assets/js/nl.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/nl.tools.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/nl.map.js"></script>
+    <script type="text/javascript" charset="utf8" src="./assets/js/nl.test.js"></script>
+    <script type="text/javascript" charset="utf8">
+		var app = new nl.Test();
+	</script>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="./assets/ico/favicon.ico" rel="shortcut icon" />
+    <link href="./assets/ico/apple-touch-icon-114-precomposed.png" sizes="114x114" rel="apple-touch-icon-precomposed" />
+    <link href="./assets/ico/apple-touch-icon-72-precomposed.png" sizes="72x72" rel="apple-touch-icon-precomposed" />
+    <link href="./assets/ico/apple-touch-icon-57-precomposed.png" sizes="57x57" rel="apple-touch-icon-precomposed" />	
+</head>
+<body onLoad="app.initialize();">
+	<div class="container-fluid">
+		<div style="display:block;">
+			<div style="float:left;margin-top:-5px;">
+				<svg style="fill:rgb(192, 57, 43);" version="1.0" 
+					xmlns:xlink="http://www.w3.org/1999/xlink" 
+					width="48px" height="48px" 
+					viewBox="0 0 26 26" style="enable-background:new 0 0 26 26;">
+					<g>
+						<path d="M25,12h-1.045C23.479,6.73,19.27,2.522,14,2.045V1c0-0.552-0.447-1-1-1c-0.552,
+							0-1,0.448-1,1v1.045C6.73,2.522,2.522,6.73,2.045,12H1c-0.552,0-1,0.448-1,1c0,0.553,
+							0.448,1,1,1h1.045C2.522,19.27,6.73,23.479,12,23.955V25c0,0.553,0.448,1,1,1c0.553,
+							0,1-0.447,1-1v-1.045c5.27-0.477,9.479-4.686,9.955-9.955H25c0.553,0,1-0.447,
+							1-1C26,12.448,25.553,12,25,12zM21,14h0.944c-0.462,4.165-3.779,7.482-7.944,
+							7.944V21c0-0.553-0.447-1-1-1c-0.552,0-1,0.447-1,1v0.944C7.835,21.482,4.518,
+							18.165,4.055,14H5c0.552,0,1-0.447,1-1c0-0.552-0.448-1-1-1H4.055C4.518,7.835,
+							7.835,4.518,12,4.055V5c0,0.552,0.448,1,1,1c0.553,0,1-0.448,1-1V4.055c4.165,
+							0.462,7.482,3.78,7.944,7.945H21c-0.553,0-1,0.448-1,1C20,13.553,20.447,14,21,14z">
+						</path>
+						<circle cx="13" cy="13" r="4"></circle>
+					</g>
+				</svg>
+			</div>
+			<div style="padding-left:60px;">
+				<h1><a href="/main.html">LoST Tester</a></h1>
+			</div>
+		</div>		
+		<hr>
+
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<div class="panel panel-primary FullHeightPanel">
+					<div class="panel-heading">
+						Request&nbsp;&nbsp;
+						<div class="btn-group" data-toggle="buttons">
+							<label class="btn btn-default btn-xs"
+									onClick="app.reqWordWrap();"
+									title="Toggle word wrap">
+								<input type="checkbox" autocomplete="off" 
+									checked>
+								<span class="glyphicon glyphicon-align-justify">
+							</label>
+						</div>												
+					</div>
+					<div class="panel-body">
+						<div class="dropdown" style="margin-bottom:5px;">
+							<button id="ddTemplates" class="btn btn-default btn-xs dropdown-toggle" type="button" 
+									data-toggle="dropdown" aria-expanded="true">
+								Template
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="ddTemplates">
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" 
+									onclick="app.loadTemplate();">empty</a></li>
+									
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" 
+									onclick="app.loadTemplate('findService.txt');">findService</a></li>										
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" 
+									onclick="app.loadTemplate('getServiceBoundary.txt');">getServiceBoundary</a></li>
+
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" 
+									onclick="app.loadTemplate('listServices.txt');">listServices</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" 
+									onclick="app.loadTemplate('listServicesByLocation.txt');">listServiceByLocation</a></li>
+							</ul>
+							<button type="button" class="btn btn-primary btn-xs"
+								onClick="app.sendRequest();">
+								Send request
+								<span class="glyphicon glyphicon-arrow-right">
+							</button>
+						</div>
+						<textarea id="txtLostReq"></textarea>
+					</div>
+				</div>
+				<div style="margin-top:-20px;">Copyright <a href="mailto:richard.prinz@min.at?subject=lost-node">richard.prinz@min.at</a> 2015</div>
+			</div>
+			
+			<div class="col-xs-12 col-md-6">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="panel panel-primary HalfHeightPanel">
+							<div class="panel-heading">
+								Response&nbsp;&nbsp;
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-default btn-xs active"
+											onClick="app.resWordWrap();"
+											title="Toggle word wrap">
+										<input type="checkbox" autocomplete="off" 
+											checked>
+										<span class="glyphicon glyphicon-align-justify">
+									</label>
+								</div>												
+							</div>
+							<div class="panel-body Map">
+								<textarea id="txtLostRes"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="panel panel-primary HalfHeightPanel">
+						
+							<div class="panel-heading" style="display:flex;">
+								Map&nbsp;&nbsp;
+								<button type="button" class="btn btn-success btn-xs"
+									onClick="app.updateReq();"
+									title="Update LoST request">
+									<span class="glyphicon glyphicon-ok">
+								</button>
+								&nbsp;
+								<button type="button" class="btn btn-danger btn-xs"
+									onClick="app.clearReqMarks();"
+									title="Clear marks and selections">
+									<span class="glyphicon glyphicon-remove">
+								</button>
+								&nbsp;
+								<button type="button" class="btn btn-default btn-xs"
+									onClick="app.goHome();"
+									title="Home location">
+									<span class="glyphicon glyphicon-home">
+								</button>
+								&nbsp;
+								<input id="txtLocation" type="text" 
+									class="form-control input-sm col-xs-2" 
+									style="height:24px;width:200px;"
+									placeholder="Enter address or location">&nbsp;
+								<button type="button" class="btn btn-default btn-xs"
+									onClick="app.searchLocation(txtLocation.value);"
+									title="Search for address or location">
+									<span class="glyphicon glyphicon-search">
+								</button>				
+							</div>
+							<div class="panel-body Map" style="padding-top:5px;">
+								<div style="margin-bottom:5px;">
+									<div class="row">
+										<div class="col-xs-7">
+											Pos:
+											<span class="label label-info" style="font-size: 100%;">
+												<span class="glyphicon glyphicon-map-marker"></span>
+												<span id="spnPos" class="label label-info">0.0, 0.0</span>
+											</span>
+											&nbsp;
+											<span id="spnSVC" class="label label-info"></span>
+										</div>
+										<div class="col-xs-4 pull-right">
+											<select id="svcList" class="combobox form-control input-sm ">
+												<option value="" selected="selected">Select or type a URN</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div id="mapx" style="height:100%;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

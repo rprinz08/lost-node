@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <getServiceBoundary xmlns="urn:ietf:params:xml:ns:lost1"
+       key="7214148E0433AFE2FA2D48003D31172E"/>
+	   
