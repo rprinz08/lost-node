@@ -85,6 +85,18 @@ integrated into the request. The service response is then
 displayed.
 
 
+## Demonstration
+If you want to try out lost-node live, a demo instance can be reached
+here: http://lost-node.azurewebsites.net. There are only very few
+areas available at the moment. The Cities of Vienna, Linz and Salzburg 
+in Austria (Europe) with service types urn:service:sos.fire and 
+urn:service:sos.police.
+
+If you have a LoST client available yourself the service URL is
+http://lost-node.azurewebsites.net/lost.svc. Just http post your
+LoST requests there.
+
+
 ## Contributing / Developing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
@@ -126,6 +138,10 @@ Then inside the lost-node folder issue the following commands:
    `start_mongo` and then `start_server`
 9. `start_server -t` creates testing data.
 10. F5 in vscode starts server (and server debugging)
+
+It would also be great to have more (international, maybe
+real life) testing data available. So controbutions her are
+very wolcome.
 
 
 ##Notes
