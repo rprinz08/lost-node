@@ -1,0 +1,12 @@
+{
+    "id": "/URI",
+    "type": "object",
+    "properties": {
+        "Schema": {
+            "type": "string"
+        },
+        "URI": {
+            "type": "string"
+        }
+    }
+}

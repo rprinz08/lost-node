@@ -29,7 +29,7 @@ var schemaDoc;
 
 exports.init = function () {
 	// read LoST rng schema
-	var rng = fs.readFileSync('./lib/lost/lost.rng');
+	var rng = fs.readFileSync('./lib/schemas/LoST.rng');
 	schemaDoc = xmlLib.parseXml(rng);
 }
 

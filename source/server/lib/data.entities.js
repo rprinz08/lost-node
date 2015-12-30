@@ -21,19 +21,23 @@
 */
 
 var Q = require('q'),
+	config = require("../config/config"),
 	tools = require('./tools'),
 	util = require('util');
+
+if(config.debug)
+    tools.setLogMode(1);
 
 $data.Entity.extend( 'Lost.Servicex', {
     ID: { key: true, type: 'id', nullable: false, computed: true },
     ServiceID: { type: 'string', nullable: false, required: true },
 	Expires: { type: 'datetime', nullable: false, required: true },
 	LastUpdated: { type: 'datetime', nullable: false, required: true },
-    DisplayName: { type: 'string', nullable: false, required: true },	
+    DisplayName: { type: 'string', nullable: false, required: true },
     Description: { type: 'string', maxLength: Number.POSITIVE_INFINITY },
     LanguageCode: { type: 'string', nullable: false, required: true },
     URN: { type: 'string', nullable: false, required: true },
-	
+
 	URIs: { type: 'Array', elementType: 'Lost.ServiceURI', inverseProperty: 'SVC' },
 	Numbers: { type: 'Array', elementType: 'Lost.ServiceNumber', inverseProperty: 'SVC' },
 	Boundaries: { type: 'Array', elementType: 'Lost.ServiceBoundary', inverseProperty: 'SVC' }
@@ -43,26 +47,22 @@ $data.Entity.extend( 'Lost.ServiceURI', {
     ID: { key: true, type: 'id', nullable: false, computed: true },
     Schema: { type: 'string', nullable: false, required: true },
     URI: { type: 'string', nullable: false, required: true },
-	
-    ServiceID: { type: 'id', nullable: false },
+
 	SVC: { type: 'Lost.Servicex', inverseProperty: 'URIs' }
 });
 
 $data.Entity.extend( 'Lost.ServiceNumber', {
     ID: { key: true, type: 'id', nullable: false, computed: true },
     Number: { type: 'string', nullable: false, required: true },
-	
-    ServiceID: { type: 'id', nullable: false },
+
 	SVC: { type: 'Lost.Servicex', inverseProperty: 'Numbers' }
 });
 
 $data.Entity.extend( 'Lost.ServiceBoundary', {
     ID: { key: true, type: 'id', nullable: false, computed: true },
-    //BoundaryGeom: { type: 'string', nullable: false, required: true, maxLength: Number.POSITIVE_INFINITY },
 	BoundaryGeom: { type: $data.GeographyMultiPolygon, nullable: false, required: true },
 	ReferenceID: { type: 'string', nullable: false, required: true },
-	
-    ServiceID: { type: 'id', nullable: false },
+
 	SVC: { type: 'Lost.Servicex', inverseProperty: 'Boundaries' }
 });
 
@@ -74,9 +74,9 @@ $data.Class.define( "LostContext", $data.EntityContext, null, {
     ServiceNumbers: { type: $data.EntitySet, elementType: Lost.ServiceNumber },
     ServiceBoundaries: { type: $data.EntitySet, elementType: Lost.ServiceBoundary,
 	    indices: [ { name: 'ixReferenceID', keys: ['ReferenceID'], unique: true } ] },
-	
+
 	// custom ODATA service operations. Metadata specified in VSDOC (///) comment
-	
+
 	// http://localhost:8080/lost.svc/getServiceURIs?serviceID=NTQ4ODUzNzU2MWQzYWEzNDFkZDg4ZWQ3
 	getServiceURIs: function(serviceID) {
 		// the following comment needs to be preserved during uglifying/mangling
@@ -106,7 +106,7 @@ $data.Class.define( "LostContext", $data.EntityContext, null, {
 				});
 		};
 	},
-	
+
 	getServiceNumbers: function(serviceID) {
 		// the following comment needs to be preserved during uglifying/mangling
 		// so check your build process / Gruntfile
@@ -135,7 +135,7 @@ $data.Class.define( "LostContext", $data.EntityContext, null, {
 				});
 		};
 	},
-	
+
 	getURNs: function() {
 		// the following comment needs to be preserved during uglifying/mangling
 		// so check your build process / Gruntfile
@@ -153,7 +153,7 @@ $data.Class.define( "LostContext", $data.EntityContext, null, {
 						.filter(function(value, index, self) {
 							return self.indexOf(value) === index;
 						});
-						
+
 					if(success)
 						success(urns);
 				})
@@ -162,7 +162,7 @@ $data.Class.define( "LostContext", $data.EntityContext, null, {
 						success([]);
 				});
 		};
-	} 
+	}
 });
 
 // perform database setup actions which could not be performed via
@@ -174,24 +174,24 @@ LostContext.doNativeSetupActions = function(dbContext) {
 
 	if (global.odata.__config.type === 'mongoDB') {
 		var nativeDb = dbContext.storageProvider.driver.MongoClient;
-		
+
 		var cfg = global.odata.__config;
 		var up = (!tools.isNullOrEmpty(cfg.username) ? cfg.username : '');
 		if(!tools.isNullOrEmpty(up) && !tools.isNullOrEmpty(cfg.password))
 			up += ':' + cfg.password;
 		if(!tools.isNullOrEmpty(up))
 			up += '@';
-		var url = 'mongodb://' + up + cfg.address + ':' + cfg.port + '/' + 
+		var url = 'mongodb://' + up + cfg.address + ':' + cfg.port + '/' +
 			cfg.databaseName;
 		nativeDb.__url = url;
 		tools.logDebug('Native connection to: ' + url.cyan);
-		
+
 		nativeDb.connect(url, function(error, db) {
 			if(error)
 				deferred.reject(error);
-		
+
 			nativeDb.__context = db;
-			
+
 			// create spatial indexes
 			var serviceBoundaries = db.collection('ServiceBoundaries');
 			serviceBoundaries.ensureIndex(
@@ -208,7 +208,7 @@ LostContext.doNativeSetupActions = function(dbContext) {
 	}
 	else
 		throw new Error('Unsupported DB provider (' + global.odata.__config.type + ')');
-		
+
 	return deferred.promise;
 }
 

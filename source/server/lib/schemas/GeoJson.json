@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "/GeoJson",
+    "title": "Geo JSON object",
+    "description": "Schema for a Geo JSON object",
+    "type": "object",
+    "required": [ "type" ],
+    "properties": {
+        "crs": { "$ref": "/CRS" },
+        "bbox": { "$ref": "/BBOX" }
+    },
+    "oneOf": [
+        { "$ref": "/Geometry" },
+        { "$ref": "#/definitions/geometryCollection" },
+        { "$ref": "#/definitions/feature" },
+        { "$ref": "#/definitions/featureCollection" }
+    ],
+    "definitions": {
+        "geometryCollection": {
+            "title": "GeometryCollection",
+            "description": "A collection of geometry objects",
+            "required": [ "geometries" ],
+            "properties": {
+                "type": { "enum": [ "GeometryCollection" ] },
+                "geometries": {
+                    "type": "array",
+                    "items": { "$ref": "/Geometry" }
+                }
+            }
+        },
+        "feature": {
+            "title": "Feature",
+            "description": "A Geo JSON feature object",
+            "required": [ "geometry", "properties" ],
+            "properties": {
+                "type": { "enum": [ "Feature" ] },
+                "geometry": {
+                    "oneOf": [
+                        { "type": "null" },
+                        { "$ref": "/Geometry" }
+                    ]
+                },
+                "properties": { "type": [ "object", "null" ] },
+                "id": { "FIXME": "may be there, type not known (string? number?)" }
+            }
+        },
+        "featureCollection": {
+            "title": "FeatureCollection",
+            "description": "A Geo JSON feature collection",
+            "required": [ "features" ],
+            "properties": {
+                "type": { "enum": [ "FeatureCollection" ] },
+                "features": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/feature" }
+                }
+            }
+        }
+    }
+}
+

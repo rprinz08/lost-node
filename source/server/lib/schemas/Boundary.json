@@ -1,0 +1,16 @@
+{
+    "id": "/Boundary",
+    "type": "object",
+    "properties": {
+        "ReferenceID": {
+            "type": "string"
+        },
+        "Geom": {
+            "$ref": "/GeoJson"
+        }
+    },
+    "required": [
+        "ReferenceID",
+        "Geom"
+    ]
+}

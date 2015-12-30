@@ -20,7 +20,7 @@
 
 var _ = require('lodash'),
     fs = require('fs');
-debugger;
+
 // Load configurations
 // Set the node environment variable if not set before
 process.env.NODE_ENV =

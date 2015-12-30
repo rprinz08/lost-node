@@ -4,5 +4,5 @@
 	"editor.fontSize": 20,
 	"editor.tabSize": 4,
 	"editor.glyphMargin": true,
-	"files.trimTrailingWhitespace": false
+	"files.trimTrailingWhitespace": true
 }

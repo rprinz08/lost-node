@@ -58,7 +58,7 @@ var errorTypes = {
 var errorNumbers = {};
 
 // Custom LoST Error
-// Create a new object, that prototypally inherits from the Error constructor.
+// Create a new object, that inherits from the Error constructor.
 var LostError = function LostError(message, errorType) {
 	this.name = 'LostError';
 	this.message = message || 'LoST error';
@@ -457,7 +457,7 @@ exports.log = function (severity, logTime, message, object, eolMode) {
 
 	if (logTime === true) {
 		var now = new Date();
-		ts = sprintf(' %04d%02d%02d %02d%02d%02d.%-4d',
+		ts = sprintf(' %04d%02d%02d %02d%02d%02d.%03d',
 			now.getFullYear(),
 			now.getMonth() + 1,
 			now.getDate(),

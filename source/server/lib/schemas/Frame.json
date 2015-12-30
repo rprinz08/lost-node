@@ -1,0 +1,45 @@
+{
+    "id": "/Frame",
+    "type": "object",
+    "oneOf": [
+        {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "service"
+                    ]
+                },
+                "service": {
+                    "$ref": "/Service"
+                },
+                "boundaries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/Boundary"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "type": {
+                    "enum": [
+                        "boundary"
+                    ]
+                },
+                "boundary": {
+                    "$ref": "/Boundary"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/Service"
+                    }
+                }
+            }
+        }
+    ],
+    "required": [
+        "type"
+    ]
+}

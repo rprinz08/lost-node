@@ -1,0 +1,48 @@
+{
+    "id": "/Service",
+    "type": "object",
+    "properties": {
+        "ServiceID": {
+            "type": "string"
+        },
+        "Expires": {
+            "type": "string"
+        },
+        "LastUpdated": {
+            "type": "string"
+        },
+        "DisplayName": {
+            "type": "string"
+        },
+        "Description": {
+            "type": "string"
+        },
+        "LanguageCode": {
+            "type": "string"
+        },
+        "URN": {
+            "type": "string"
+        },
+        "URIs": {
+            "type": "array",
+            "items": {
+                "$ref": "/URI"
+            }
+        },
+        "Numbers": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "ServiceID",
+        "Expires",
+        "DisplayName",
+        "LanguageCode",
+        "URN",
+        "URIs",
+        "Numbers"
+    ]
+}

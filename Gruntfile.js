@@ -111,16 +111,18 @@ module.exports = function (grunt) {
                 files: [
                     { src: [ 'package.json' ], dest: 'dist/package.json' },
                     { src: [ 'readme.md' ], dest: 'dist/readme.md' },
-                    { src: [ 'source/server/lib/lost/lost.rng' ], dest: 'dist/lib/lost/lost.rng' },
-                    { src: [ 'source/server/favicon.ico' ], dest: 'dist/favicon.ico' }
+                    { src: [ 'source/server/favicon.ico' ], dest: 'dist/favicon.ico' },
+                    { expand: true, flatten: true, src: [ 'source/server/testdata/*' ], dest: 'dist/testdata/' },
+                    { expand: true, flatten: true, src: [ 'source/server/lib/schemas/*' ], dest: 'dist/lib/schemas/' }
                 ]
             },
             server_release: {
                 files: [
                     { src: [ 'package.json' ], dest: 'dist/package.json' },
                     { src: [ 'readme.md' ], dest: 'dist/readme.md' },
-                    { src: [ 'source/server/lib/lost/lost.rng' ], dest: 'dist/lib/lost/lost.rng' },
-                    { src: [ 'source/server/favicon.ico' ], dest: 'dist/favicon.ico' }
+                    { src: [ 'source/server/favicon.ico' ], dest: 'dist/favicon.ico' },
+                    { expand: true, flatten: true, src: [ 'source/server/testdata/*' ], dest: 'dist/testdata/' },
+                    { expand: true, flatten: true, src: [ 'source/server/lib/schemas/*' ], dest: 'dist/lib/schemas/' }
                 ]
             },
             client_debug: {

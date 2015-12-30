@@ -5,7 +5,7 @@ A [RFC 5222](https://tools.ietf.org/html/rfc5222) compatible node.js based LoST 
 ## Objectives
 Basic idea for this project was to have a very lightwight
 implementation of a [RFC 5222](https://tools.ietf.org/html/rfc5222) lost server to perform tests with.
-At the time as development starts there where no public 
+At the time as development starts there where no public
 implementations for my testing purposes available so lost-node
 was born.
 
@@ -36,51 +36,62 @@ lost-node should be:
 
 ## Installation
 First ensure that all dependencies are available on the
-server: 
+server:
 * mongodb
 * node.js
 
 To install lost-node first place the distribution zip file
-"lost.zip" which is created during buid somewhere on your 
-server and unzip it. Then install all required node.js 
-modules with `npm install --production` inside the `dist` 
-folder. This also triggers some native build 
+"lost.zip" which is created during buid somewhere on your
+server and unzip it. Then install all required node.js
+modules with `npm install --production` inside the `dist`
+folder. This also triggers some native build
 processes for some node modules (e.g. xmllib).
 If you use Windows see the notes section for more infos.
- 
+
 Next change folder to `dist/config/env/` and modify an existing
-configuration (production.js, development.js) or create a 
+configuration (production.js, development.js) or create a
 new one. After this change the `start_server` shell script
 to match your configuration.
 
 
 ## Usage
-First start the mongodb server with the
-`start_mongo.cmd` batch file. Then in another shell start
-the server with `start_server.cmd`. Now open your browser
+First start the mongodb server (if it is not already running) with the
+`start_mongo.[sh|cmd]` shell script. Then in another shell start
+the server with `start_server.[sh|cmd]`. Now open your browser
 and navigate to http://locahost:8080.
 
-To create (or delete an existing) an empty lost mongodb database
-use `start_server -i` to initialize.
+`start_server -i` creates an empty (or deletes an existing) lost mongodb database.
+
+`start_server -f filename` imports a JSON file into the database.
+
+`start_server -d directory` imports all JSON files in the specified
+directory into the database.
 
 `start_server -t` creates some testing data. At the moment 4
-areas (all inside Austria: Vienna, Linz and Salzburg) and two 
+areas (all inside Austria: Vienna, Linz and Salzburg) and two
 services (urn:service:sos.police and urn:service:sos.fire)
-are created.
+are created. The test data JSON files are located in the `testdata`
+directory. You can use it as examples how to import data using the
+`-f` or `-d` options. `start_server -t` is equivalent to `start_server -d testdata`.
+
+`start_server --help` displays a help text.
 
 `start_server` without options just starts the LoST server itself.
 
 To change TCP port, url etc. edit `config/env/development.js` or
 `config/env/production.js`.
+If you run the server in an environment like Microsoft IISNODE as used
+in the Microsoft Azure cloud the environment variables
+`LISTEN` and `PORT` overrule all other settings from config files.
 
 
 ### The lost tester
 ![Alt text](infos/LostTesterScreenshot.png)
 
 To play with LoST request and responses the included lost-tester
-allows to select one of the four LoST reuests (findService, 
+allows to select one of the four LoST reuests (findService,
 getServiceBoundary, listServices and listServicesByLocation),
-a location on the map and a requested service which are 
+a location on the map and a requested service which are
 integrated into the request. The service response is then
 displayed.
 
@@ -88,8 +99,8 @@ displayed.
 ## Demonstration
 If you want to try out lost-node live, a demo instance can be reached
 here: http://lost-node.azurewebsites.net. There are only very few
-areas available at the moment. The Cities of Vienna, Linz and Salzburg 
-in Austria (Europe) with service types urn:service:sos.fire and 
+areas available at the moment. The Cities of Vienna, Linz and Salzburg
+in Austria (Europe) with service types urn:service:sos.fire and
 urn:service:sos.police.
 
 If you have a LoST client available yourself the service URL is
@@ -108,7 +119,7 @@ To start development ensure you have the following dependecies
 installed:
 
 1. node.js<br>
-   Download and install node from https://nodejs.org/en/ 
+   Download and install node from https://nodejs.org/en/
 2. grunt-cli<br>
    Install using `npm install -g grunt-cli`
 3. bower<br>
@@ -117,9 +128,9 @@ installed:
    Install using `npm install -g tsd`
 5. For some node modules a native build environment is needed
    * gcc for linux
-   * Visual Studio (Express) on windows.  
+   * Visual Studio (Express) on windows.
 6. optional: Visual Studio Code (vscode)<br>
-   Download and install from https://code.visualstudio.com/ 
+   Download and install from https://code.visualstudio.com/
 
 Then inside the lost-node folder issue the following commands:
 
@@ -146,15 +157,22 @@ very wolcome.
 
 ##Notes
 * lost-node is developed with:
-  * node.js version 4.2.2
+  * node.js version 4.2.2 (64bit)
   * mongodb version 3.0.7
   * Visual Studio Code version 0.10.3
- 
-* JayData odata-server / jaydata 1.3.6 node module does not work with 
+
+* JayData odata-server / jaydata 1.3.6 node module does not work with
 mongodb client >= 2.0
 (see https://www.mongodb.com/blog/post/introducing-nodejs-mongodb-20-driver)
 So use the latest 1 version (1.4.39) instead. This is also defined in
 package.json
+
+* You can use
+  * LINQPad https://www.linqpad.net/
+  * Sesame Data Browser http://metasapiens.com/sesame/data-browser/preview/
+
+  to access the LoST database using odata via
+  * http://localhost:8080/lost.data.svc
 
 * Also note that this version is not complete und highly untested.
 Feel free to contribute to make lost-node better. Especially missing
@@ -162,9 +180,12 @@ in this version are forward and redirect functionalities and a
 management frontend.
 
 * For windows, binaries for mongodb, the VUE admin tool and
-  the libxmljs node modules are included. So you dont need 
-  mongodb or Visual Studio installed on windows. To use it
+  the libxmljs node modules are included. So you dont need
+  mongodb or Visual Studio installed on windows. The precompiled windows
+  module binaries are 64bit versions! If you use a 32bit node you have to
+  compile 32bit modules yourself. To use it
   follow this instructions:
+
   1. before running `npm install` copy the `package.json` file
      to a safe place. Next remove the following lines
      in the dependencies section from `package.json`:
@@ -177,7 +198,7 @@ management frontend.
       Extract its contents into the `node_modules` folder.
   4. Restore the `package.json` backup from point 1.
   5. Run `npm install` again to install the remaining dependencies.
-  6. Now you should have all dependencies installed.  
+  6. Now you should have all dependencies installed.
 
 * The LoST testing application supports multiple map providers. For Google and
 Microsoft BING Maps you will need an API key. See the notes in the corresponding

@@ -1,6 +1,6 @@
 {
   "name": "lost-node",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "RFC5222 LoST Server",
   "homepage": "https://github.com/rprinz08/lost-node",
   "main": "index.js",
@@ -18,6 +18,8 @@
     "express": "^4.13.3",
     "express-debug": "^1.1.1",
     "file-stream-rotator": "0.0.6",
+    "glob": "^6.0.1",
+    "jsonschema": "^1.0.2",
     "libxml-to-js": "^0.3.11",
     "libxmljs": "^0.15.0",
     "lodash": "^3.10.1",

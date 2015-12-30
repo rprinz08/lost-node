@@ -1,6 +1,7 @@
 "use strict";
 
 var _ = require('lodash'),
+	config = require("../config/config"),
 	tools = require('../lib/tools'),
 	util = require('util'),
 	xmlBuilder = require('xmlbuilder'),
@@ -10,6 +11,9 @@ var _ = require('lodash'),
 	listServices = require('../lib/lost/listServices'),
 	listServicesByLocation = require('../lib/lost/listServicesByLocation');
 var LostError = tools.LostError;
+
+if(config.debug)
+    tools.setLogMode(1);
 
 // cross site scripting handling
 exports.crossSite = function (req, res, next) {
@@ -22,12 +26,12 @@ exports.crossSite = function (req, res, next) {
 // LoST service handler
 exports.handleRequest = function (req, res, next) {
 	var rawRequest = '';
-	
+
 	// concatenate data chunks
 	req.on('data', function (data) {
 		rawRequest += data;
 	});
-	
+
 	// when request complete (all data chunks read) process it
 	req.on('end', function () {
 		try {
@@ -70,7 +74,7 @@ exports.handleRequest = function (req, res, next) {
 					res.set('Content-Type', 'application/xml');
 					var xml = response.toString();
 					res.send(xml);
-					
+
 					tools.logDebug('LoST request processed', xml);
 				})
 				.fail(function (error) {
@@ -87,7 +91,7 @@ exports.handleRequest = function (req, res, next) {
 exports.handleError = function (error, req, res, next) {
 	if (error) {
 		res.status(200);
-	
+
 		// create response error object
 		var e = {};
 		if (error.message)
@@ -104,17 +108,17 @@ exports.handleError = function (error, req, res, next) {
 		var tagMsg = e.msg + (e.tag ? ' (' +
 			_.trim(e.tag.toString().replace(/[\r\n\t]/g, ' ')) + ')' : '');
 		tools.logError(tagMsg);
-		
+
 		// send XML error response
 		res.set('Content-Type', 'text/xml');
 		res.send(tools.createError(e.lostErrorType,
 			tagMsg, e.lostErrorLanguage, false, 0, 0));
-			
+
 		// send JSON error response
 		//res.set('Content-Type', 'application/json');
-		//res.send(tools.createError(e.lostErrorType, 
+		//res.send(tools.createError(e.lostErrorType,
 		//	tagMsg, e.lostErrorLanguage, false, 0, 1));
-			
+
 		res.end();
 	}
 	else
